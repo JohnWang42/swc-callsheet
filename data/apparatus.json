@@ -1,0 +1,19 @@
+{
+	"apparatus": [
+		{
+			"name": "Engine 1234",
+			"seats": 6,
+			"code": "e1234"
+		},
+		{
+			"name": "Rescue 1235",
+			"seats": 6,
+			"code": "r1235"
+		},
+		{
+			"name": "Ladder 1236",
+			"seats": 7,
+			"code": "l1236"
+		}
+	]
+}

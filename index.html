@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="csApp">
+	<head>
+		<title>Se-Wy-Co Call Log</title>
+		<meta charset="utf-8">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+
+		<!-- CSS -->
+		<link rel="stylesheet" href="css/vendor/bootstrap.min.css">
+		<link rel="stylesheet" href="css/vendor/bootstrap-theme.min.css">
+		<link rel="stylesheet" href="css/vendor/jquery-ui.min.css">
+		<link rel="stylesheet" href="css/vendor/jquery-ui.structure.min.css">
+		<link rel="stylesheet" href="css/vendor/jquery-ui.theme.min.css">
+		<link rel="stylesheet" href="css/main.css">
+
+		<!-- JS -->
+		<script type="text/javascript" src="js/vendor/jquery-1.11.1.min.js"></script>
+		<script type="text/javascript" src="js/vendor/jquery-ui.min.js"></script>
+		<script type="text/javascript" src="js/vendor/jquery.ui.touch-punch.min.js"></script>
+		<script type="text/javascript" src="js/vendor/bootstrap.min.js"></script>
+		<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/angularjs/1.3.0-rc.3/angular.min.js"></script>
+		<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.19/angular-route.js"></script>
+		<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.19/angular-sanitize.js"></script>
+		<script type="text/javascript" src="js/vendor/ui-bootstrap-tpls-0.11.2.min.js"></script>
+
+		<script type="text/javascript" src="js/app.js"></script>
+	</head>
+	<body ng-controller="CsController">
+		<!--[if lt IE 7]>
+			<p>You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
+		<![endif]-->
+
+		<div class="container" ng-show="logArea">
+			<h1>Se-Wy-Co Call Log</h1>
+			<div class="row">
+				<form class="form" role="form" name="callForm" novalidate>
+					<div class="row">
+						<div class="form-group col-md-4 col-xs-12">
+							<label class="control-label">Call Type</label>
+							<input type='text' class='form-control' ng-model="callType" typeahead="cType for cType in callTypes | filter:$viewValue" required>
+						</div>
+						<div class="form-group col-md-4 col-xs-12">
+							<label class="control-label">Location</label>
+							<input type='text' class='form-control' ng-model="callLoc" required>
+						</div>
+						<div class="form-group col-md-4 col-xs-12">
+							<label class="control-label">Date</label>
+							<input type='date' class='form-control' ng-model="callDate" required>
+						</div>
+					</div>
+					<div class="row">
+						<div class="form-group col-md-8 col-xs-12">
+							<label class="control-label">Comments</label>
+							<textarea class='form-control' rows="4" ng-model="callComm" required></textarea>
+						</div>
+					</div>
+					<div class="row">
+						<div class="form-group col-md-3 col-xs-12">
+							<label class="control-label">Select apparatus to add</label>
+							<select class="form-control" ng-options="app.name for app in apparatus" ng-model="selectApp">
+								<option value="">--Select an apparatus--</option>
+							</select>
+							<button class="btn btn-default" ng-click="addApp()">Add Selected Apparatus</button>
+						</div>
+					</div>
+					<div ng-repeat="app in usedApp">
+						<div class="row">
+							<div class="form-group col-md-4 col-xs-12">
+								<label class="control-label">{{app.name}}</label>
+								<div class="control-group" ng-repeat="seats in app.seatArr">
+									<div class='input-group' ng-if="$first && app.seats != -1"><span class='input-group-addon'>Driver</span>
+									<input type='text' class='form-control' ng-model="seatData[seats]" typeahead="person for person in personnel | filter:$viewValue"></div>
+									<div class='input-group' ng-if="$index == 1 && app.seats != -1"><span class='input-group-addon'>Officer</span>
+									<input type='text' class='form-control' ng-model="seatData[seats]" typeahead="person for person in personnel | filter:$viewValue"></div>
+									<input type='text' class='form-control' ng-model="seatData[seats]" typeahead="person for person in personnel | filter:$viewValue" ng-if="!$first && $index != 1 || app.seats == -1">
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="row"><div class="col-md-12">
+						<button type="button" class="btn btn-default" ng-click="sendInfo()" ng-disabled="sending">Submit Call Log</button>
+						<div ng-show="sending && !done"><img src="loading.gif">Sending call log... Please wait</div>
+					</div></div>
+				</form>
+			</div>
+		</div>
+		<div ng-show="printArea">
+			<div class="btn-group" role="group" ng-show="buttons">
+				<button type="button" class="btn btn-primary" ng-click="print()" ng-show="done">Print</button>
+				<button type="button" class="btn btn-danger" ng-click="newPage()" ng-show="done">New Call Log</button>
+			</div>
+			<div ng-bind-html="renderHtml(emailData)">
+			</div>
+		</div>
+	</body>
+</html>

@@ -1,0 +1,31 @@
+{
+	"callTypes": [
+		"Automatic Fire Alarm(AFA)",
+		"Fire Alarm",
+		"CO(Carbon Monoxide) Alarm - No Symptoms",
+		"CO(Carbon Monoxide) Alarm - With Symptoms",
+		"Dwelling Fire",
+		"Commercial Structure Fire",
+		"Vehicle Fire",
+		"Brush Fire",
+		"Rubbish/Trash Fire",
+		"ALS - Advanced Life Support",
+		"BLS - Basic Life Support",
+		"MVA - Unknown Injuries",
+		"MVA - With Injuries",
+		"MVA - With Entrapment",
+		"EMS Assist",
+		"Indoor Odor Investigation",
+		"Outdoor Odor Investigation",
+		"Smoke Investigation",
+		"Spill",
+		"Fire Transformer/Wires",
+		"Wires Down",
+		"Elevator Rescue",
+		"Road Hazard",
+		"Pump Detail",
+		"Traffic Control",
+		"Bomb Threat",
+		"Terrain/Search Rescue"
+	]
+}
